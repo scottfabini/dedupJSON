@@ -22,7 +22,7 @@ public class Deduplicate {
             for (int j = i + 1; j < leads.size(); j++) {
                 Lead lead2 = leads.get(j);
                 if (lead1.getId().equals(lead2.getId()) || lead1.getEmail().equals(lead2.getEmail())) {
-                    if (lead1.getDate().compareTo(lead2.getDate()) >= 0) {
+                    if (lead1.getDate().compareTo(lead2.getDate()) > 0) {
                         leads.remove(lead2);
                         lead2.logChange(lead1);
 

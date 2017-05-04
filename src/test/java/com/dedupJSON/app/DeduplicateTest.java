@@ -28,36 +28,47 @@ public class DeduplicateTest
     }
 
     public void testIdEquality() {
-        Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
+        Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:30+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj22", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        List<Lead> leads = new LinkedList<Lead>();
+        List<Lead> leads = new ArrayList<Lead>();
         leads.add(firstLead);
         leads.add(secondLead);
         leads = Deduplicate.dedup(leads);
         assertEquals(leads.size(), 1);
-        assertEquals(leads.get(0), secondLead);
+        assertEquals(leads.get(0).getEmail(), firstLead.getEmail());
+    }
+
+    public void testIdEqualityAndEntryDateEquality() {
+        Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
+        Lead secondLead = new Lead("jkj238238jdsnfsj22", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
+        List<Lead> leads = new ArrayList<>();
+        leads.add(firstLead);
+        leads.add(secondLead);
+        leads = Deduplicate.dedup(leads);
+        assertEquals(leads.size(), 1);
+        assertEquals(leads.get(0).getEmail(), secondLead.getEmail());
     }
 
     public void testEmailEquality() {
-        Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
+        Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:30+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        List<Lead> leads = new LinkedList<Lead>();
+        List<Lead> leads = new ArrayList<>();
         leads.add(firstLead);
         leads.add(secondLead);
         leads = Deduplicate.dedup(leads);
         assertEquals(leads.size(), 1);
-        assertEquals(leads.get(0), firstLead);
+        assertEquals(leads.get(0).getId(), firstLead.getId());
     }
 
     public void testInequality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        List<Lead> leads = new LinkedList<Lead>();
+        List<Lead> leads = new ArrayList<>();
         leads.add(firstLead);
         leads.add(secondLead);
         assertEquals(leads.size(), 2);
-        assertEquals(leads.get(0), firstLead);
-        assertEquals(leads.get(0), secondLead);
+        assertEquals(leads.get(0).getEmail(), firstLead.getEmail());
+        assertEquals(leads.get(1).getEmail(), secondLead.getEmail());
     }
 
 
