@@ -96,8 +96,4 @@ public class FileHandler {
             out.close();
         }
     }
-
-    public void logChanges(String fileName) {
-
-    }
 }

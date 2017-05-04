@@ -11,13 +11,22 @@ public class App
      */
     public static void main( String[] args )
     {
-        if (args == null) {
-            System.err.println("Usage: dedupJSON <input file name>");
+        String inputFileName;
+        String outputFileName;
+        if (args == null || args.length == 0) {
+            inputFileName = "leads.json";
+            outputFileName = "result.json";
+        } else if (args.length == 1) {
+            inputFileName = args[0];
+            outputFileName = "result.json";
+        } else {
+            inputFileName = args[0];
+            outputFileName = args[1];
         }
         Lead [] leads;
-        FileHandler handler = new FileHandler(args[0]);
+        FileHandler handler = new FileHandler(inputFileName);
         leads = handler.getLeads();
         leads = Deduplicate.dedup(leads);
-        handler.putLeads("result.json", leads);
+        handler.putLeads(outputFileName, leads);
     }
 }
