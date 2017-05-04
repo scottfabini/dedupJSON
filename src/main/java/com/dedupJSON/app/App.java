@@ -1,13 +1,17 @@
 package com.dedupJSON.app;
 
+import java.util.List;
+
 /**
  * Entry point to the dedupJSON application.
  */
 public class App 
 {
     /**
-     * The application reads the file, filters out duplicate entries, and writes results to "result.json" file.
-     * @param args Supports one command-line argument: the input file name.
+     * The application reads the file, filters out duplicate entries, and writes results to specified file.
+     * @param args Supports two command-line argument: the input file name (default: leads.json), and
+     *             the output file name (default: results.json).
+     *             Log data is sent to std.out, and can be redirected to a file with >> log.txt at the command line.
      */
     public static void main( String[] args )
     {
@@ -23,7 +27,7 @@ public class App
             inputFileName = args[0];
             outputFileName = args[1];
         }
-        Lead [] leads;
+        List<Lead> leads;
         FileHandler handler = new FileHandler(inputFileName);
         leads = handler.getLeads();
         leads = Deduplicate.dedup(leads);

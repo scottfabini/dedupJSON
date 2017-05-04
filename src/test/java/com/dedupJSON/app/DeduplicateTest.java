@@ -30,29 +30,34 @@ public class DeduplicateTest
     public void testIdEquality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj22", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        Lead [] leads = {firstLead, secondLead};
+        List<Lead> leads = new LinkedList<Lead>();
+        leads.add(firstLead);
+        leads.add(secondLead);
         leads = Deduplicate.dedup(leads);
-        assertEquals(leads.length, 1);
-        assertEquals(leads[0], secondLead);
+        assertEquals(leads.size(), 1);
+        assertEquals(leads.get(0), secondLead);
     }
 
     public void testEmailEquality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        Lead [] leads = {firstLead, secondLead};
+        List<Lead> leads = new LinkedList<Lead>();
+        leads.add(firstLead);
+        leads.add(secondLead);
         leads = Deduplicate.dedup(leads);
-        assertEquals(leads.length, 1);
-        assertEquals(leads[0], firstLead);
+        assertEquals(leads.size(), 1);
+        assertEquals(leads.get(0), firstLead);
     }
 
     public void testInequality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
-        Lead [] leads = {firstLead, secondLead};
-        leads = Deduplicate.dedup(leads);
-        assertEquals(leads.length, 2);
-        assertEquals(leads[0], firstLead);
-        assertEquals(leads[1], secondLead);
+        List<Lead> leads = new LinkedList<Lead>();
+        leads.add(firstLead);
+        leads.add(secondLead);
+        assertEquals(leads.size(), 2);
+        assertEquals(leads.get(0), firstLead);
+        assertEquals(leads.get(0), secondLead);
     }
 
 

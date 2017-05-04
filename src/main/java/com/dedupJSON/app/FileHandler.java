@@ -2,6 +2,8 @@ package com.dedupJSON.app;
 
 import javax.json.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handler for reading and writing to a JSON file.
@@ -33,9 +35,9 @@ public class FileHandler {
 
     /**
      * Read the Leads from the JsonObject.
-     * @return The array of Leads
+     * @return The list of Leads
      */
-    public Lead [] getLeads() {
+    public List<Lead> getLeads() {
         JsonArray arrayOfLeads = empObj.getJsonArray("leads");
         JsonObject leadObject;
         String id;
@@ -45,9 +47,8 @@ public class FileHandler {
         String address;
         String entryDate;
         Lead lead;
-        Lead [] leads;
+        List<Lead> leads = new ArrayList<>();
         int size = arrayOfLeads.size();
-        leads = new Lead[size];
         for (int i = 0; i < size; i++) {
             leadObject = arrayOfLeads.getJsonObject(i);
             id = leadObject.getString("_id");
@@ -58,7 +59,7 @@ public class FileHandler {
             entryDate = leadObject.getString("entryDate");
 
             lead = new Lead(id, email, firstName, lastName, address, entryDate);
-            leads[i] = lead;
+            leads.add(lead);
         }
         return leads;
     }
@@ -68,9 +69,9 @@ public class FileHandler {
      * @param fileName Output file name
      * @param leads The array of Leads
      */
-    public void putLeads(String fileName, Lead [] leads) {
+    public void putLeads(String fileName, List<Lead> leads) {
         PrintWriter out = null;
-        int length;
+        int size;
 
         if (fileName == null || leads == null) {
             return;
@@ -84,11 +85,11 @@ public class FileHandler {
 
         out.write("{\"leads\": [\n");
 
-        length = leads.length;
-        for (int i = 0; i < length - 1; ++i) {
-            out.write(leads[i].toString() + ",\n");
+        size = leads.size();
+        for (int i = 0; i < size - 1; ++i) {
+            out.write(leads.get(i).toString() + ",\n");
         }
-        out.write(leads[length - 1].toString());
+        out.write(leads.get(size - 1).toString());
 
         out.write("]\n}");
 
