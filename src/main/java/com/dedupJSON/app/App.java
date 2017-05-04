@@ -6,7 +6,7 @@ package com.dedupJSON.app;
 public class App 
 {
     /**
-     * The application reads the file, filters out duplicate entries, and writes results to "result.txt" file.
+     * The application reads the file, filters out duplicate entries, and writes results to "result.json" file.
      * @param args Supports one command-line argument: the input file name.
      */
     public static void main( String[] args )
@@ -18,6 +18,6 @@ public class App
         FileHandler handler = new FileHandler(args[0]);
         leads = handler.getLeads();
         leads = Deduplicate.dedup(leads);
-        handler.putLeads("result.txt", leads);
+        handler.putLeads("result.json", leads);
     }
 }

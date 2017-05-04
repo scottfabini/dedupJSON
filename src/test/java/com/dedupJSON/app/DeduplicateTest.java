@@ -33,7 +33,7 @@ public class DeduplicateTest
         Lead [] leads = {firstLead, secondLead};
         leads = Deduplicate.dedup(leads);
         assertEquals(leads.length, 1);
-        assertEquals(leads[0], firstLead);
+        assertEquals(leads[0], secondLead);
     }
 
     public void testEmailEquality() {

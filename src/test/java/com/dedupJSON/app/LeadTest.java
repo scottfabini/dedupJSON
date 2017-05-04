@@ -42,26 +42,25 @@ public class LeadTest
         idMap.put(firstLead.getId(), firstLead);
         idMap.put(secondLead.getId(), secondLead);
         Collection<Lead> results = idMap.values();
-        Lead [] result = (Lead []) results.toArray();
-        assertTrue(firstLead.equals(secondLead));
+        assertTrue(firstLead.getId().equals(secondLead.getId()));
     }
 
     public void testEmailEquality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:33:20+00:00");
-        assertTrue(firstLead.equals(secondLead));
+        assertTrue(firstLead.getEmail().equals(secondLead.getEmail()));
     }
 
     public void testBothEquality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:33:20+00:00");
-        assertTrue(firstLead.equals(secondLead));
+        assertTrue(firstLead.getId().equals(secondLead.getId()));
     }
 
     public void testInequality() {
         Lead firstLead = new Lead("jkj238238jdsnfsj22", "foo@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:32:20+00:00");
         Lead secondLead = new Lead("jkj238238jdsnfsj23", "fun@bar.com", "John", "Smith", "123 Street St", "2014-05-07T17:33:20+00:00");
-        assertFalse(firstLead.equals(secondLead));
+        assertFalse(firstLead.getEmail().equals(secondLead.getEmail()));
     }
 }
 

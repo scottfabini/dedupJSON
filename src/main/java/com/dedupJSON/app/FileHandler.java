@@ -10,7 +10,7 @@ public class FileHandler {
     private JsonObject empObj; // The JsonObject read from the file.
 
     /**
-     *
+     * Construct the FileHandler, initializing it to read a JSON file.
      * @param filename The input file name
      */
     public FileHandler(String filename) {
@@ -95,5 +95,9 @@ public class FileHandler {
         if (out != null) {
             out.close();
         }
+    }
+
+    public void logChanges(String fileName) {
+
     }
 }

@@ -3,3 +3,5 @@
 result.txt
 target/
 .DS_Store
+result.json
+log.txt
